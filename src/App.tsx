@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [height, setHeight] = useState<number>(0)
+  const [positionX, setPositionX] = useState<number>(0)
+  const [positionY, setPositionY] = useState<number>(0)
   const [space, setSpace] = useState(150) // 2 times the height from the bird .bird class
   const [numberOfTubes, setNumberOfTubes] = useState(10)
-  const [horizontalSpaceBetweenTubes, setHorizontalSpaceBetweenTubes] = useState(200)
+  const [horizontalSpaceBetweenTubes, setHorizontalSpaceBetweenTubes] = useState(400)
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--height', `${height}px`);
-  }, [height])
+    document.documentElement.style.setProperty('--height', `${positionX}px`);
+  }, [positionX])
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--positionY', `${positionY}px`);
+  }, [positionY])
 
   useEffect(() => {
     const interval = 10
     const verticalSpeed = window.innerHeight / 1000
 
     const timer = setInterval(() => {
-      setHeight((prev: number) => {
+      setPositionX((prev: number) => {
         if (prev >= window.innerHeight - 50) {
           alert('Endgame')
           clearInterval(timer)
@@ -30,7 +35,8 @@ function App() {
   }, [])
 
   const handleClick = () => {
-    setHeight(prev => prev - 50)
+    setPositionX(prev => prev - 50)
+    setPositionY(prev => prev + 50)
   }
   // the height is 1
   // the minimum space that it must be for the bird to pass
@@ -46,7 +52,7 @@ function App() {
         {/* <button onClick={handleClick}>+</button> */}
         {
           Array.from({ length: numberOfTubes }).map((_, i) => {
-            const leftPosition = (i + 2) * horizontalSpaceBetweenTubes;
+            const leftPosition = (i + 1) * 2 * horizontalSpaceBetweenTubes;
             return (
               <React.Fragment key={i}>
                 <div className="tube_top" style={{ left: `${leftPosition}px` }}></div>
