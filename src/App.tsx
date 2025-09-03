@@ -45,11 +45,11 @@ function App() {
   // the first tube must measure (1 - space) * delta
   // the second tube must measure (1 - space) * (1 - delta)
 
+
   return (
     <>
       <div onClick={handleClick} className='main_container'>
         <div className='bird'></div>
-        {/* <button onClick={handleClick}>+</button> */}
         {
           Array.from({ length: numberOfTubes }).map((_, i) => {
             const leftPosition = (i + 1) * 2 * horizontalSpaceBetweenTubes;
